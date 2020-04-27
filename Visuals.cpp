@@ -3,7 +3,7 @@
 void Visuals::ESP()
 {
 	if (I::Engine->IsInGame() && I::Engine->IsConnected()) {
-		for (int i = 1; i <= I::Engine->GetMaxClients(); ++i)
+		for (int i = 1; i <= I::Engine->GetMaxClients(); ++i) // Iteration starts at 1 because 0 is CWorld.
 		{
 			C_BaseEntity* Entity = I::EntityList->GetClientEntity(i);
 			if (!Entity
@@ -30,6 +30,7 @@ void Visuals::ESP()
 			I::Engine->GetScreenSize(screenWidth, screenHeight);
 			g_ImRender->DrawEspBox(leftUpCorn, rightDownCorn, Color::Red(), 3);
 			g_ImRender->DrawWave(vecOrigin, 50, Color::Green(), 3);
+			g_ImRender->DrawString(g_Globals->Font1, vecScreenOrigin.x, vecScreenOrigin.y, Color::White(), "%i HP", Entity->GetHealth());
 		}
 	}
 }
