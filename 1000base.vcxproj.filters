@@ -129,7 +129,6 @@
     <ClInclude Include="Globals.h">
       <Filter>SDK\Math &amp; Stuff</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h" />
     <ClInclude Include="IPlayerInfoManager.h">
       <Filter>SDK\Interfaces\Valve</Filter>
     </ClInclude>
@@ -177,11 +176,5 @@
     <ClCompile Include="CreateMove.cpp">
       <Filter>Hooks\Game</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="d3dx9.lib" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="1000base.rc" />
   </ItemGroup>
 </Project>

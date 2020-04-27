@@ -7,11 +7,11 @@ LRESULT __stdcall Hooks::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 {
 	static bool PressedButtons = false;
 
-	if (!PressedButtons && GetAsyncKeyState(VK_DELETE))
+	if (!PressedButtons && GetAsyncKeyState(VK_INSERT))
 	{
 		PressedButtons = true;
 	}
-	else if (PressedButtons && !GetAsyncKeyState(VK_DELETE))
+	else if (PressedButtons && !GetAsyncKeyState(VK_INSERT))
 	{
 		PressedButtons = false;
 

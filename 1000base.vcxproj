@@ -130,7 +130,6 @@
     <ClInclude Include="dt_recv.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="IPlayerInfoManager.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="Visuals.h" />
     <ClInclude Include="Hooks.h" />
     <ClInclude Include="IBaseClientDLL.h" />
@@ -170,12 +169,6 @@
     <ClCompile Include="Present.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="WndProc.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="d3dx9.lib" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="1000base.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

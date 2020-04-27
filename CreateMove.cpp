@@ -4,20 +4,25 @@ CreateMoveFn oCreateMove;
 
 bool __stdcall Hooks::CreateMove(float flInputSampleTime, CUserCmd* pCmd)
 {
-	auto bCreateMoveReturn = oCreateMove(flInputSampleTime, pCmd); // Cause that`s fix a lot of bugs w/ this hook
+	auto bCreateMoveReturn = oCreateMove(flInputSampleTime, pCmd);
 
 	if (!pCmd || !pCmd->command_number)
 		return bCreateMoveReturn;
 
 	g_Globals->LocalPlayer = I::EntityList->GetClientEntity(I::Engine->GetLocalPlayer());
-    static int ticks_jump;
-	if (pCmd->buttons & IN_JUMP)
-	{
-        if (ticks_jump++ >= 9)
-            pCmd->buttons = pCmd->buttons & ~IN_JUMP;
+	int iFlags = g_Globals->LocalPlayer->GetFlags();
+	static bool bReleased = true;
+	if (pCmd->buttons & IN_JUMP) {
+		if (bReleased == false)
+		{
+			if (!(iFlags & FL_ONGROUND)) 
+				pCmd->buttons &= ~IN_JUMP;
+		} else
+			bReleased = false;
 	}
-    if (!(pCmd->buttons & IN_JUMP))
-		ticks_jump = 0;
+	else if (bReleased == false)
+		bReleased = true;
+	
 
-	return false;
+	return false; 
 }

@@ -22,7 +22,12 @@ public:
 		static int m_iHealth = g_pNetvars->GetOffset("DT_BasePlayer", "m_iHealth");
 		return GetValue<int>(m_iHealth);
 	}
-
+	//	"DT_BaseEntity", "m_iTeamNum"
+	int GetTeamNum()
+	{
+		static int m_iTeamNum = g_pNetvars->GetOffset("DT_BaseEntity", "m_iTeamNum");
+		return GetValue<int>(m_iTeamNum);
+	}
 	Vector GetOrigin()
 	{
 		static int m_vecOrigin = g_pNetvars->GetOffset("DT_BaseEntity", "m_vecOrigin");
@@ -35,10 +40,15 @@ public:
 		static int offset = m_PlayerClass + m_iClass;
 		return GetValue<int>(offset);
 	}
-	EntityFlags GetFlags()
+	int GetCondition()
+	{
+		static int m_nPlayerCond = g_pNetvars->GetOffset("DT_TFPlayer", "m_Shared", "m_nPlayerCond");
+		return GetValue<int>(m_nPlayerCond);
+	}
+	int GetFlags()
 	{
 		static int m_fFlags = g_pNetvars->GetOffset("DT_BasePlayer", "m_fFlags");
-		return GetValue<EntityFlags>(m_fFlags);
+		return GetValue<int>(m_fFlags);
 	}
 };
 

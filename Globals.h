@@ -4,7 +4,6 @@ class Globals
 {
 public:
 	HWND TF2Window;
-	bool isPanorama;
 	bool RenderInit;
 	ImFont* Font1;
 	ImFont* Font2;

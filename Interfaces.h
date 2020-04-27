@@ -13,7 +13,7 @@ namespace I {
 	extern IVEngineClient* Engine;
 	extern IClientEntityList* EntityList;
 	extern IGlobalVars* Globals;
-	extern IClientMode* ClientMode;
+	extern IClientModeShared* ClientMode;
 	extern ISurface* Surface;
 	extern IPlayerInfoManager* PlayerInfo;
 }
