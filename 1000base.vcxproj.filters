@@ -37,6 +37,9 @@
     <Filter Include="Features\Menu">
       <UniqueIdentifier>{3162387d-f2ae-4113-9145-0a36272b6d22}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Features\Options">
+      <UniqueIdentifier>{33059d16-1395-4fe0-99e5-99708750595e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imconfig.h">
@@ -132,6 +135,15 @@
     <ClInclude Include="IPlayerInfoManager.h">
       <Filter>SDK\Interfaces\Valve</Filter>
     </ClInclude>
+    <ClInclude Include="IVDebugOverlay.h">
+      <Filter>SDK\Interfaces\Valve</Filter>
+    </ClInclude>
+    <ClInclude Include="Panels.h">
+      <Filter>SDK\Interfaces\Valve</Filter>
+    </ClInclude>
+    <ClInclude Include="Options.h">
+      <Filter>Features\Options</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui.cpp">
@@ -175,6 +187,12 @@
     </ClCompile>
     <ClCompile Include="CreateMove.cpp">
       <Filter>Hooks\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="PaintTraverse.cpp">
+      <Filter>Hooks\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Options.cpp">
+      <Filter>Features\Options</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

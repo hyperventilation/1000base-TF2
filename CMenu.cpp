@@ -9,10 +9,7 @@ void CMenu::Menu() {
 				ImGui::Text("Local player has spawned!");
 
 			ImGui::PushFont(g_Globals->Font1);
-			ImGui::Text("Cool-io");
-			ImGui::PopFont();
-			ImGui::PushFont(g_Globals->Font2);
-			ImGui::Text("CertT");
+			ImGui::Checkbox("Enable Visuals", &g_Option.enable_esp);
 			ImGui::PopFont();
 		}
 		ImGui::End();

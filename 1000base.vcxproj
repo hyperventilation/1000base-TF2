@@ -130,6 +130,9 @@
     <ClInclude Include="dt_recv.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="IPlayerInfoManager.h" />
+    <ClInclude Include="IVDebugOverlay.h" />
+    <ClInclude Include="Options.h" />
+    <ClInclude Include="Panels.h" />
     <ClInclude Include="Visuals.h" />
     <ClInclude Include="Hooks.h" />
     <ClInclude Include="IBaseClientDLL.h" />
@@ -158,6 +161,8 @@
     <ClCompile Include="CMenu.cpp" />
     <ClCompile Include="CreateMove.cpp" />
     <ClCompile Include="EntryPoint.cpp" />
+    <ClCompile Include="Options.cpp" />
+    <ClCompile Include="PaintTraverse.cpp" />
     <ClCompile Include="Visuals.cpp" />
     <ClCompile Include="imgui.cpp" />
     <ClCompile Include="imgui_draw.cpp" />

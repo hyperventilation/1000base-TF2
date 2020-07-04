@@ -19,8 +19,18 @@ void __stdcall ImGuiRendering::InvalidateObjects()
 void __stdcall ImGuiRendering::SetupPresent(IDirect3DDevice9* device)
 {
 	ImGui_ImplDX9_Init(g_Globals->TF2Window, device);
-	g_Globals->Font1 = ImGui::GetIO().Fonts->AddFontFromMemoryCompressedBase85TTF(_compressed_data_base85, 18.0f);
-	g_Globals->Font2 = ImGui::GetIO().Fonts->AddFontFromMemoryCompressedBase85TTF(_compressed_data_base85, 64.0f);
+
+	ImFontConfig font_cfg = ImFontConfig();
+	font_cfg.OversampleH = font_cfg.OversampleV = 1;
+	font_cfg.PixelSnapH = true;
+	if (font_cfg.Name[0] == '\0') 
+		strcpy_s(font_cfg.Name, "C:\\Windows\\Fonts\\cour.ttf, 18px");
+	if (font_cfg.SizePixels <= 0.0f) 
+		font_cfg.SizePixels = 18.0f;
+
+	ImFont* font = ImGui::GetIO().Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\cour.ttf", 18.0f, &font_cfg, ImGui::GetIO().Fonts->GetGlyphRangesDefault());
+	g_Globals->Font1 = font;
+	g_Globals->Font2 = ImGui::GetIO().Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\cour.ttf", 64.0f);
 	g_ImRender->CreateObjects(device);
 	g_Globals->RenderInit = true;
 }

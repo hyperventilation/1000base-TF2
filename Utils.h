@@ -15,6 +15,7 @@ public:
 	void InitHooks();
 	DWORD FindPatternIDA(std::string moduleName, std::string pattern);
 	bool WorldToScreen(const Vector &origin, Vector &screen);
+	bool dehook;
 
 private:
 }; extern Utils* g_Utils;

@@ -1,14 +1,23 @@
 #include "Main.h"
 
+Color Visuals::GetTeamColor(C_BaseEntity* ent)
+{
+	// 2 red
+	// 3 blu
+
+	return (ent->GetTeamNum() == 2 ? Color(255, 102, 0, 255) : ent->GetTeamNum() == 3 ? Color(0, 102, 255, 255) : Color(255, 255, 255, 255));
+}
+
 void Visuals::ESP()
 {
-	if (I::Engine->IsInGame() && I::Engine->IsConnected()) {
+	if (I::Engine->IsInGame() && I::Engine->IsConnected()) { // Check if player has joined a game and is connected to the game.
 		for (int i = 1; i <= I::Engine->GetMaxClients(); ++i) // Iteration starts at 1 because 0 is CWorld.
 		{
 			C_BaseEntity* Entity = I::EntityList->GetClientEntity(i);
 			if (!Entity
 				|| !Entity->GetLifeState() == 0
 				|| !Entity->GetHealth() > 0
+				|| Entity->Dormant()
 				|| Entity == g_Globals->LocalPlayer)
 				continue;
 
@@ -28,9 +37,16 @@ void Visuals::ESP()
 
 			int screenWidth, screenHeight;
 			I::Engine->GetScreenSize(screenWidth, screenHeight);
-			g_ImRender->DrawEspBox(leftUpCorn, rightDownCorn, Color::Red(), 3);
-			g_ImRender->DrawWave(vecOrigin, 50, Color::Green(), 3);
-			g_ImRender->DrawString(g_Globals->Font1, vecScreenOrigin.x, vecScreenOrigin.y, Color::White(), "%i HP", Entity->GetHealth());
+			if (g_Option.enable_esp)
+			{
+				PlayerInfo_t pInfo;
+				if (I::Engine->GetPlayerInfo(i, &pInfo)) {
+					g_ImRender->DrawEspBox(leftUpCorn, rightDownCorn, GetTeamColor(Entity), 2);
+					g_ImRender->DrawString(g_Globals->Font1, rightUpCorn.x + 5, rightUpCorn.y - 2, GetTeamColor(Entity), "%s", pInfo.name);
+					rightUpCorn.y += 12;
+					g_ImRender->DrawString(g_Globals->Font1, rightUpCorn.x + 5, rightUpCorn.y - 2, GetTeamColor(Entity), "%i HP", Entity->GetHealth());
+				}
+			}
 		}
 	}
 }

@@ -5,7 +5,9 @@
 #include "IBaseClientDLL.h"
 #include "IVEngineClient.h"
 #include "IEntity.h"
+#include "Panels.h"
 #include "ISurface.h"
+#include "IVDebugOverlay.h"
 #include "IPlayerInfoManager.h"
 
 namespace I {
@@ -14,7 +16,9 @@ namespace I {
 	extern IClientEntityList* EntityList;
 	extern IGlobalVars* Globals;
 	extern IClientModeShared* ClientMode;
+	extern Panel* Panels;
 	extern ISurface* Surface;
+	extern IVDebugOverlay* DebugOverlay;
 	extern IPlayerInfoManager* PlayerInfo;
 }
 

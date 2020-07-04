@@ -11,5 +11,6 @@
 // Cheat func
 #include "VMTHook.h"
 #include "Hooks.h"
+#include "Options.h"
 #include "Visuals.h"
 #include "CMenu.h"

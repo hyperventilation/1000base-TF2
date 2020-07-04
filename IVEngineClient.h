@@ -113,7 +113,7 @@ public:
 	virtual bool				CullBox(const Vector& mins, const Vector& maxs) = 0;
 	virtual void				Sound_ExtraUpdate(void) = 0;
 	virtual const char* GetGameDirectory(void) = 0;
-	virtual const VMatrix& WorldToScreenMatrix() = 0;
+	virtual const D3DMATRIX& WorldToScreenMatrix() = 0;
 	virtual const VMatrix& WorldToViewMatrix() = 0;
 	virtual int					GameLumpVersion(int lumpId) const = 0;
 	virtual int					GameLumpSize(int lumpId) const = 0;

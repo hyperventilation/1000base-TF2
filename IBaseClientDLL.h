@@ -1,7 +1,6 @@
 #pragma once
 #include "IEntity.h"
 
-class IPanel;
 class ClientClass
 {
 public:
