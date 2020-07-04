@@ -17,7 +17,7 @@ bool __stdcall DllMain(void* dll_instance, unsigned long reason_to_call, void* r
 	case DLL_PROCESS_ATTACH: 
 		h_mod = (HMODULE)dll_instance;
 		DisableThreadLibraryCalls((HMODULE)dll_instance);
-		CloseHandle(CreateThread(0, 0, (LPTHREAD_START_ROUTINE)Initialize, dll_instance, 0, 0));
+		CreateThread(0, 0, (LPTHREAD_START_ROUTINE)Initialize, dll_instance, 0, 0);
 		break;
 	}
 
