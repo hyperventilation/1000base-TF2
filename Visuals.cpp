@@ -17,7 +17,7 @@ void Visuals::ESP()
 			if (!Entity
 				|| !Entity->GetLifeState() == 0
 				|| !Entity->GetHealth() > 0
-				|| Entity->Dormant()
+				|| I::EntityList->GetClientNetworkable(i)->IsDormant()
 				|| Entity == g_Globals->LocalPlayer)
 				continue;
 

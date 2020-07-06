@@ -11,18 +11,11 @@ private:
 		return *reinterpret_cast<T*>(reinterpret_cast<std::uintptr_t>(this) + offset);
 	}
 public:
-	bool Dormant()
-	{
-		PVOID Networkable = (PVOID)(this + 0x8); // I don't have IClientNetworkable here so we do this and ezpz fixed
-		typedef bool(__thiscall* OriginalFn)(PVOID);
-		return g_Utils->get_vfunc<OriginalFn>(Networkable, 8)(Networkable);
-	}
 	bool GetLifeState()
 	{
 		static int m_lifeState = g_pNetvars->GetOffset("DT_BasePlayer", "m_lifeState");
 		return GetValue<bool>(m_lifeState);
 	}
-
 	int GetHealth()
 	{
 		static int m_iHealth = g_pNetvars->GetOffset("DT_BasePlayer", "m_iHealth");
