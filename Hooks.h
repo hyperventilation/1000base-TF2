@@ -19,7 +19,7 @@ extern LockCursorFn oLockCursor;
 namespace Hooks {
 	extern long __stdcall Present(IDirect3DDevice9* device, const RECT *pSourceRect, const RECT *pDestRect, HWND hDestWindowOverride, const RGNDATA *pDirtyRegion); // probably better if you go with EndScene.
 	extern long __stdcall Reset(IDirect3DDevice9* pDevice, D3DPRESENT_PARAMETERS* pPresentationParameters);
-	extern bool __stdcall CreateMove(float flInputSampleTime, CUserCmd* cmd);
+	extern bool __stdcall CreateMove(float flInputSampleTime, CUserCmd * cmd);
 	extern void __stdcall PaintTraverse(unsigned int vguiPanel, bool forceRepaint, bool allowForce);
 	extern void __stdcall LockCursor();
 

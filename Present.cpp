@@ -6,7 +6,8 @@ LockCursorFn oLockCursor;
 
 void __stdcall Hooks::LockCursor()
 {
-	if (g_Vars->Menu.Opened) {
+	if (g_Vars->Menu.Opened)
+	{
 		I::Surface->UnLockCursor();
 		return;
 	}
@@ -32,7 +33,7 @@ long __stdcall Hooks::Reset(IDirect3DDevice9* pDevice, D3DPRESENT_PARAMETERS* pP
 		return oReset(pDevice, pPresentationParameters);
 
 	g_ImRender->InvalidateObjects();
-	long hr = oReset(pDevice, pPresentationParameters);
+	const long hr = oReset(pDevice, pPresentationParameters);
 	g_ImRender->CreateObjects(pDevice);
 	return hr;
 }

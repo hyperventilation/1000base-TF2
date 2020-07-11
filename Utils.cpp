@@ -2,36 +2,33 @@
 
 void Utils::InitHooks()
 {
-	std::unique_ptr<CVMTHookManager> ClientMode;
-	ClientMode = std::make_unique<CVMTHookManager>(I::ClientMode);
+	std::unique_ptr<CVMTHookManager> ClientMode = std::make_unique<CVMTHookManager>(I::ClientMode);
+	std::unique_ptr<CVMTHookManager> Panel = std::make_unique<CVMTHookManager>(I::Panels);
+	std::unique_ptr<CVMTHookManager> Surface = std::make_unique<CVMTHookManager>(I::Surface);
 
-	std::unique_ptr<CVMTHookManager> Panel;
-	Panel = std::make_unique<CVMTHookManager>(I::Panels);
+	const auto dwPresent = Utils::FindPatternIDA("gameoverlayrenderer.dll", "FF 15 ? ? ? ? 8B F8 85 DB") + 0x2;
+	const auto dwReset = Utils::FindPatternIDA("gameoverlayrenderer.dll", "FF 15 ? ? ? ? 8B F8 85 FF 78 18") + 0x2;
 
-	std::unique_ptr<CVMTHookManager> Surface;
-	Surface = std::make_unique<CVMTHookManager>(I::Surface);
-
-	DWORD dwPresent = Utils::FindPatternIDA("gameoverlayrenderer.dll", "FF 15 ? ? ? ? 8B F8 85 DB") + 0x2;
-	DWORD dwReset = Utils::FindPatternIDA("gameoverlayrenderer.dll", "FF 15 ? ? ? ? 8B F8 85 FF 78 18") + 0x2;
-
-	oCreateMove = (CreateMoveFn)ClientMode->dwHookMethod((DWORD)Hooks::CreateMove, 21);
-	oPaintTraverse = (PaintTraverseFn)Panel->dwHookMethod((DWORD)Hooks::PaintTraverse, 41);
-	oLockCursor = (LockCursorFn)Surface->dwHookMethod((DWORD)Hooks::LockCursor, 62);
-	oPresent = (PresentFn)((new CVMTHookManager((PDWORD*)dwPresent))->dwHookMethod((DWORD)&Hooks::Present, 0));
-	oReset = (ResetFn)((new CVMTHookManager((PDWORD*)dwReset))->dwHookMethod((DWORD)&Hooks::Reset, 0));
+	oCreateMove = reinterpret_cast<CreateMoveFn>(ClientMode->dwHookMethod(reinterpret_cast<DWORD>(Hooks::CreateMove), 21));
+	oPaintTraverse = reinterpret_cast<PaintTraverseFn>(Panel->dwHookMethod(reinterpret_cast<DWORD>(Hooks::PaintTraverse), 41));
+	oLockCursor = reinterpret_cast<LockCursorFn>(Surface->dwHookMethod(reinterpret_cast<DWORD>(Hooks::LockCursor), 62));
+	oPresent = reinterpret_cast<PresentFn>((new CVMTHookManager(reinterpret_cast<DWORD**>(dwPresent)))->dwHookMethod(
+		reinterpret_cast<DWORD>(&Hooks::Present), 0));
+	oReset = reinterpret_cast<ResetFn>((new CVMTHookManager(reinterpret_cast<DWORD**>(dwReset)))->dwHookMethod(
+		reinterpret_cast<DWORD>(&Hooks::Reset), 0));
 }
 
 bool Utils::WorldToScreen(const Vector& origin, Vector& screen)
 {
 	const auto screenTransform = [&origin, &screen]() -> bool
 	{
-		const D3DMATRIX& w2sMatrix = (D3DMATRIX)I::Panels->GetLatestViewMatrix();
+		const auto & w2sMatrix = static_cast<D3DMATRIX>(I::Panels->GetLatestViewMatrix());
 
 		screen.x = w2sMatrix.m[0][0] * origin.x + w2sMatrix.m[0][1] * origin.y + w2sMatrix.m[0][2] * origin.z + w2sMatrix.m[0][3];
 		screen.y = w2sMatrix.m[1][0] * origin.x + w2sMatrix.m[1][1] * origin.y + w2sMatrix.m[1][2] * origin.z + w2sMatrix.m[1][3];
 		screen.z = 0.0f;
 
-		float w = w2sMatrix.m[3][0] * origin.x + w2sMatrix.m[3][1] * origin.y + w2sMatrix.m[3][2] * origin.z + w2sMatrix.m[3][3];
+		auto w = w2sMatrix.m[3][0] * origin.x + w2sMatrix.m[3][1] * origin.y + w2sMatrix.m[3][2] * origin.z + w2sMatrix.m[3][3];
 
 		if (w < 0.001f)
 		{
@@ -40,7 +37,7 @@ bool Utils::WorldToScreen(const Vector& origin, Vector& screen)
 			return true;
 		}
 
-		float invw = 1.f / w;
+		const float invw = 1.f / w;
 		screen.x *= invw;
 		screen.y *= invw;
 
@@ -49,7 +46,8 @@ bool Utils::WorldToScreen(const Vector& origin, Vector& screen)
 
 	if (!screenTransform())
 	{
-		int iScreenWidth, iScreenHeight;
+		int iScreenWidth;
+		int iScreenHeight;
 		I::Engine->GetScreenSize(iScreenWidth, iScreenHeight);
 
 		screen.x = (iScreenWidth * 0.5f) + (screen.x * iScreenWidth) * 0.5f;

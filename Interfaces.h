@@ -27,7 +27,8 @@ public:
 	using original_fn = void* (*)(const char*, int*);
 	template <typename t = void*>
 	t get_interface(const char* module_name, const char* interface_name) {
-		original_fn create_interface = (original_fn)GetProcAddress(GetModuleHandleA(module_name), "CreateInterface");
+		void*(*create_interface)(const char*, int*) = reinterpret_cast<original_fn>(GetProcAddress(
+			GetModuleHandleA(module_name), "CreateInterface"));
 		return reinterpret_cast< t >(create_interface(interface_name, nullptr));
 	}
 	void* brute_iface(const char* name, const char* interfacen, const char* ptr_name, const char* pinterface)
@@ -57,6 +58,7 @@ public:
 		}
 		return FALSE;
 	}
-	void InitInterfaces();
+
+	static void InitInterfaces();
 private:
 }; extern Interfaces* g_Interfaces;
