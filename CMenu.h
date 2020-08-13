@@ -2,7 +2,7 @@
 
 class CMenu {
 public:
-	void Menu();
+	void Menu() const;
 private:
 
 }; extern CMenu* g_Menu;

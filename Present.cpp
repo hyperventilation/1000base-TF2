@@ -33,7 +33,7 @@ long __stdcall Hooks::Reset(IDirect3DDevice9* pDevice, D3DPRESENT_PARAMETERS* pP
 		return oReset(pDevice, pPresentationParameters);
 
 	g_ImRender->InvalidateObjects();
-	const long hr = oReset(pDevice, pPresentationParameters);
+	const auto hr = oReset(pDevice, pPresentationParameters);
 	g_ImRender->CreateObjects(pDevice);
 	return hr;
 }

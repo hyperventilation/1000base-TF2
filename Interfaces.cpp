@@ -20,7 +20,7 @@ void Interfaces::InitInterfaces()
 	I::DebugOverlay = g_Interfaces->get_interface<IVDebugOverlay*>("engine.dll", "VDebugOverlay003");
 	I::PlayerInfo = g_Interfaces->get_interface<IPlayerInfoManager*>("server.dll", "PlayerInfoManager002");
 
-	auto dwCHLClientTable = reinterpret_cast<DWORD*>(*reinterpret_cast<DWORD*>(I::Client));
-	I::ClientMode = **reinterpret_cast<IClientModeShared***>(static_cast<DWORD>(dwCHLClientTable[10]) + 0x05);
+	const auto dw_chl_client_table = reinterpret_cast<DWORD*>(*reinterpret_cast<DWORD*>(I::Client));
+	I::ClientMode = **reinterpret_cast<IClientModeShared***>(static_cast<DWORD>(dw_chl_client_table[10]) + 0x05);
 	I::Globals = I::PlayerInfo->GetGlobalVars();
 }

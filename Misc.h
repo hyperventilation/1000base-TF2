@@ -169,7 +169,7 @@ enum EntityFlags : int
 	FL_FAKECLIENT = (1 << 8)
 };
 
-class CUserCmd
+class CUserCmd final
 {
 public:
 	virtual ~CUserCmd() {}; //Destructor 0

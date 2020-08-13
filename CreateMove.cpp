@@ -8,15 +8,14 @@ bool __stdcall Hooks::CreateMove(float flInputSampleTime, CUserCmd * pCmd)
 {
 	std::memcpy(&I::Panels->GetLatestViewMatrix(), &I::Engine->WorldToScreenMatrix(), sizeof(D3DMATRIX)); // I don't know, PT didn't work. Probably due to thread safe.
 
-	const auto bCreateMoveReturn = oCreateMove(flInputSampleTime, pCmd);
+	const auto b_create_move_return = oCreateMove(flInputSampleTime, pCmd);
 
 	if (!pCmd || !pCmd->command_number)
 	{
-		return bCreateMoveReturn;
+		return b_create_move_return;
 	}
 
 	g_Globals->LocalPlayer = I::EntityList->GetClientEntity(I::Engine->GetLocalPlayer());
-
 	auto do_bunnyhop = [&]()
 	{
 		static bool b_released = true;
@@ -34,8 +33,7 @@ bool __stdcall Hooks::CreateMove(float flInputSampleTime, CUserCmd * pCmd)
 	};
 
 	do_bunnyhop();
-
-	return bCreateMoveReturn; // If you want silent aim, return false, but make sure to call SetViewAngles manually.
+	return b_create_move_return; // If you want silent aim, return false, but make sure to call SetViewAngles manually.
 }
 
 

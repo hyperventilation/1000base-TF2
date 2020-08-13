@@ -13,8 +13,8 @@ public:
 	}
 
 	void InitHooks();
-	DWORD FindPatternIDA(std::string moduleName, std::string pattern);
-	bool WorldToScreen(const Vector &origin, Vector &screen);
+	DWORD FindPatternIDA(std::string moduleName, const std::string & pattern);
+	static bool WorldToScreen(const Vector &origin, Vector &screen);
 	bool dehook;
 
 private:
