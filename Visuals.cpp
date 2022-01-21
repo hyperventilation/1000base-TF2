@@ -9,6 +9,10 @@ Color Visuals::GetTeamColor(C_BaseEntity * ent)
 		        : Color(255, 255, 255, 255));
 }
 
+constexpr auto DUCK{ 54.f };
+constexpr auto STAND{ 72.f };
+constexpr auto EWIDTH{ 1.5f };
+
 void Visuals::ESP()
 {
 	if (I::Engine->IsInGame() && I::Engine->IsConnected())
@@ -28,10 +32,6 @@ void Visuals::ESP()
 			Vector vec_screen_bottom;
 			Vector vec_screen_origin;
 			auto vec_origin{ vec_bottom = entity->GetOrigin() };
-
-			constexpr auto DUCK{ 54.f };
-			constexpr auto STAND{ 72.f };
-			constexpr auto EWIDTH{ 1.5f };
 			
 			if ((entity->GetFlags() & FL_DUCKING)) 
 				vec_bottom.z += DUCK;
